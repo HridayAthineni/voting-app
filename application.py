@@ -49,7 +49,7 @@ def add_voter():
             print("commited")
             return render_template("home.html", name="Your registration is successful")
         else:
-            return render_template("home.html", name="User already exists or Age restricted")
+            return render_template("home.html", name="User already exists")
 
     return render_template("register.html")
 
