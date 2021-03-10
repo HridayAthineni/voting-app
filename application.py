@@ -39,11 +39,16 @@ def add_voter():
         area = request.form.get("Area")
         vote = voter(userid, password, age, area, False)
         # try:
-        db.session.add(vote)
-        print("added")
-        db.session.commit()
-        print("commited")
-        return render_template("home.html", name="Your registration is successful")
+        user = db.session.query(voter).get(userid)
+        if not user:
+            db.session.add(vote)
+            print("added")
+            db.session.commit()
+            print("commited")
+            return render_template("home.html", name="Your registration is successful")
+        else:
+            return render_template("home.html", name="User already exists")
+
     # except:
         # print(Exception)
         # return render_template("register.html", name="UserId already exist")
