@@ -38,10 +38,10 @@ def add_voter():
         age = request.form.get("Age")
         area = request.form.get("Area")
         vote = voter(userid, password, age, area, False)
-        # try:
+
         user = db.session.query(voter).get(userid)
         ageVerify = db.session.query(voter).get(age)
-        # try:
+
         if not user:
             db.session.add(vote)
             print("added")
@@ -51,9 +51,6 @@ def add_voter():
         else:
             return render_template("home.html", name="User already exists or Age restricted")
 
-        # except:
-        #     # print(Exception)
-        #     return render_template("home.html", name="Give correct details")
     return render_template("register.html")
 
 
