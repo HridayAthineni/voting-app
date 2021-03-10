@@ -40,7 +40,7 @@ def add_voter():
         vote = voter(userid, password, age, area, False)
 
         user = db.session.query(voter).get(userid)
-        ageVerify = db.session.query(voter).get(age)
+        # ageVerify = db.session.query(voter).get(age)
 
         if not user:
             db.session.add(vote)
