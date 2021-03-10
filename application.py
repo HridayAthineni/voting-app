@@ -41,19 +41,20 @@ def add_voter():
         # try:
         user = db.session.query(voter).get(userid)
         ageVerify = db.session.query(voter).get(age)
+        print(ageVerify)
+        try:
+            if not user and ageVerify >= 18:
+                db.session.add(vote)
+                print("added")
+                db.session.commit()
+                print("commited")
+                return render_template("home.html", name="Your registration is successful")
+            else:
+                return render_template("home.html", name="User already exists or Age restricted")
 
-        if not user and ageVerify >= 18:
-            db.session.add(vote)
-            print("added")
-            db.session.commit()
-            print("commited")
-            return render_template("home.html", name="Your registration is successful")
-        else:
-            return render_template("home.html", name="User already exists or Age restricted")
-
-    # except:
-        # print(Exception)
-        # return render_template("register.html", name="UserId already exist")
+        except:
+            # print(Exception)
+            return render_template("home.html", name="Give correct details")
     return render_template("register.html")
 
 
