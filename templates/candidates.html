@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<script> 
+function x() {
+    window.location = "http://localhost:5000/"
+}
+function vote(name) { 
+    console.log("in vote");
+    console.log(name);
+    const myRequest = new XMLHttpRequest(); 
+    myRequest.open('POST',('/addvote')); 
+    const data = new FormData(); 
+    data.append('name',name); 
+    myRequest.send(data); 
+    myRequest.onload = function () { 
+        console.log("success"); 
+        const data = JSON.parse(myRequest.responseText); 
+        console.log(data.sucsess);
+        x();
+
+    } 
+        }
+    </script>
+<body style="background-color: cornsilk;">
+
+
+    <h2 style="text-align: center; color: crimson; padding-top: 2%;" >Candidate List</h2>
+    <h4 style="text-align: center; color: rgba(20, 220, 203, 0.705); padding-top: 2%;" >Click on candidate name to vote</h4>
+
+   {% if data %} 
+    {% for candidate in data %}
+        <div style="padding: 3%;">
+            
+            <!-- <p name="name">
+                {{candidate.Name}}
+            </p> -->
+            <!-- <button type="button" class="btn btn-outline-success">Success</button> -->
+
+            <button style="padding: 1%; width: 50%; position: absolute; right: 25%;" id ="{{candidate.Name}}" class="btn btn-outline-success btn-lg btn-block" type="button" name = "{{candidate.Name}}" value = "{{candidate.Name}}"
+            onclick = "vote(this.value)">{{candidate.Name}}</button>
+        </div>
+    {% endfor %}
+   {% endif %}
+
+</body>
+</html>
