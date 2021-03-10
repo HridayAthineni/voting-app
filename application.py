@@ -41,9 +41,8 @@ def add_voter():
         # try:
         user = db.session.query(voter).get(userid)
         ageVerify = db.session.query(voter).get(age)
-        print(ageVerify)
         try:
-            if not user and ageVerify >= 18:
+            if not user and int(ageVerify) >= 18:
                 db.session.add(vote)
                 print("added")
                 db.session.commit()
